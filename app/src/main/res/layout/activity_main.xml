@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="205dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="4dp"
+            android:text="Canvas"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-5dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="205dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="4dp"
+            android:text="Palette"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="204dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.example.paint4.CanvasFragment"
+            android:layout_width="match_parent"
+            android:layout_height="620dp"
+            tools:layout="@layout/fragment_canvas" />
+    </LinearLayout>
+
+</LinearLayout>
