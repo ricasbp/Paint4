@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -25,11 +27,13 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     private int backGroundColor = Color.WHITE;
     private GestureDetector mGestureDetector;
 
+
     public PaintCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOnTouchListener(this);
         setBackgroundColor(backGroundColor);
         initPaint();
+
     }
 
     public PaintCanvas(Context context, AttributeSet attrs, GestureDetector mGestureDetector) {
@@ -40,7 +44,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         initPaint();
     }
 
-    // Draws all the diferrent strokes
+    // Draws all the different strokes
     @Override
     protected void onDraw(Canvas canvas) {
         int i = 0;
@@ -57,6 +61,11 @@ public class PaintCanvas extends View implements View.OnTouchListener{
             currentPaint.setStrokeJoin(Paint.Join.ROUND);
             i++;
             canvas.drawPath(currentPath, currentPaint);// draws the path with the paint
+
+
+
+
+
         }
     }
 
@@ -106,8 +115,21 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         setBackgroundColor(backGroundColor);
     }
 
+    public void changeBackgroundBlue(){
+        Random r = new Random();
+        backGroundColor = Color.BLUE;
+        setBackgroundColor(backGroundColor);
+    }
+
     public void erase(){
         paint.setColor(backGroundColor);
+    }
+
+    public void deleteDrawing(){
+        allPaints.clear();
+        allPaths.clear();
+        Log.d("LogDaTuga", "allPaints = " + allPaints.toString());
+        Log.d("LogDaTuga", "allPaths = " + allPaths.toString());
     }
 
     private void initPaint(){

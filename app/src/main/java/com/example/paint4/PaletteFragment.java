@@ -39,7 +39,7 @@ public class PaletteFragment extends Fragment {
     // Create Color Picker App In Android Studio With Source Code
     // https://www.youtube.com/watch?v=aR7JKHw2aqg&ab_channel=Edubaba
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 

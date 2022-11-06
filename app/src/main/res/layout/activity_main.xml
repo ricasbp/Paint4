@@ -9,13 +9,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="63dp"
+        android:layout_height="37dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:text="Save State" />
+
+        <Button
+            android:id="@+id/buttonLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Load State" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="205dp"
-            android:layout_height="60dp"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Canvas"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,8 +42,8 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="205dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Palette"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="620dp"
             tools:layout="@layout/fragment_canvas" />
+
     </LinearLayout>
 
 </LinearLayout>

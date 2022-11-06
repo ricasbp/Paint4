@@ -12,5 +12,9 @@
         android:title="About"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/menu_Map"
+        android:title="Map"
+        app:showAsAction="never"/>
+
 
 </menu>

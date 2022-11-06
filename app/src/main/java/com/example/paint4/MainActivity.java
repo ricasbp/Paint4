@@ -1,11 +1,16 @@
 package com.example.paint4;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,24 +21,28 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Map;
+
+
 public class MainActivity extends AppCompatActivity {
+
     public static final String EXTRA_MESSAGE = "MESSAGE";
-
-
     ImageView imgView;
+
 
     // Create Option Menu on start
     // Options Menu with Sub Items - Android Studio Tutorial
     // https://www.youtube.com/watch?v=oh4YOj9VkVE&ab_channel=CodinginFlow
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflter = getMenuInflater();
-        menuInflter.inflate(R.menu.example_menu, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.example_menu, menu);
         return true;
     }
+
     //When items from the options menu are clicked
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected( MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_Settings:
                 Intent intent = new Intent(this, About.class);
@@ -47,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 //String message = editText.getText().toString();
                 intent2.putExtra(EXTRA_MESSAGE, "whatever");
                 startActivityForResult(intent2,1);
+
+            case R.id.menu_Map:
+                Intent intent3 = new Intent(this, MapActivity.class);
+                //EditText editText = (EditText) findViewById(R.id.editTextTextPersonName);
+                //String message = editText.getText().toString();
+                intent3.putExtra(EXTRA_MESSAGE, "whatever");
+                startActivityForResult(intent3,1);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -56,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         // Tutorial to do this
@@ -111,5 +128,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // In portrait
         }
+
     }
 }
