@@ -4,30 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "MESSAGE";
-    ImageView imgView;
 
 
     // Create Option Menu on start
@@ -87,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         if (btnPalette != null){
             btnPalette.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(@NotNull View view) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
 
                     fragmentManager.beginTransaction()
@@ -128,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // In portrait
         }
+
+
 
     }
 }

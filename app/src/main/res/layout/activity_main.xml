@@ -7,24 +7,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonSave"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:text="Save State" />
-
-        <Button
-            android:id="@+id/buttonLoad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Load State" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

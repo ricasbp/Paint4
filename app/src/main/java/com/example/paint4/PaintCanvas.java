@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -16,14 +13,14 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PaintCanvas extends View implements View.OnTouchListener{
+public class PaintCanvas extends View implements View.OnTouchListener {
 
     private Paint paint = new Paint();
     ArrayList<Integer> allPaints = new ArrayList<Integer>();
     private int currentPathColor = 0;
 
-    private Path currentPath = new Path();
-    ArrayList<Path> allPaths = new ArrayList<Path>();
+    private CustomPath currentPath = new CustomPath();
+    ArrayList<CustomPath> allPaths = new ArrayList<>();
     private int backGroundColor = Color.WHITE;
     private GestureDetector mGestureDetector;
 
@@ -48,29 +45,27 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     @Override
     protected void onDraw(Canvas canvas) {
         int i = 0;
-        for(Path currentPath: allPaths){
+
+        Log.d("LogDaTuga", "allPaths: " + allPaths.toString());
+
+        for (CustomPath currentPath : allPaths) {
             Paint currentPaint = new Paint();
             currentPaint.setAntiAlias(true);
             currentPaint.setStrokeWidth(20f);
-            if(i != 0){
+            if (i != 0) {
                 currentPaint.setColor(allPaints.get(i)); // cor atual
-            }else{
+            } else {
                 currentPaint.setColor(Color.BLACK);
             }
             currentPaint.setStyle(Paint.Style.STROKE);
             currentPaint.setStrokeJoin(Paint.Join.ROUND);
             i++;
             canvas.drawPath(currentPath, currentPaint);// draws the path with the paint
-
-
-
-
-
         }
     }
 
     @Override
-    public boolean performClick(){
+    public boolean performClick() {
         return super.performClick();
     }
 
@@ -93,7 +88,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
                 break;
             case MotionEvent.ACTION_UP:// when you lift your finger IT ADDS TO THE LIST OF STROKES
                 allPaths.add(currentPath);
-                currentPath = new Path();
+                currentPath = new CustomPath();
                 allPaints.add(paint.getColor()); // Se for a cor igual queremos adicionar na mesma para o for no onDraw() nao morrer
                 performClick();
                 Log.d("LogDaTuga", "allPaints = " + allPaints.toString());
@@ -109,30 +104,30 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         return true;
     }
 
-    public void changeBackground(){
+    public void changeBackground() {
         Random r = new Random();
         backGroundColor = Color.rgb(r.nextInt(256), r.nextInt(256), r.nextInt(256));
         setBackgroundColor(backGroundColor);
     }
 
-    public void changeBackgroundBlue(){
+    public void changeBackgroundBlue() {
         Random r = new Random();
         backGroundColor = Color.BLUE;
         setBackgroundColor(backGroundColor);
     }
 
-    public void erase(){
+    public void erase() {
         paint.setColor(backGroundColor);
     }
 
-    public void deleteDrawing(){
+    public void deleteDrawing() {
         allPaints.clear();
         allPaths.clear();
-        Log.d("LogDaTuga", "allPaints = " + allPaints.toString());
-        Log.d("LogDaTuga", "allPaths = " + allPaths.toString());
+        //Log.d("LogDaTuga", "allPaints = " + allPaints);
+        //Log.d("LogDaTuga", "allPaths = " + allPaths.toString());
     }
 
-    private void initPaint(){
+    private void initPaint() {
         paint.setAntiAlias(true);
         paint.setStrokeWidth(20f);
         paint.setColor(Color.BLACK);
@@ -140,7 +135,23 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         paint.setStrokeJoin(Paint.Join.ROUND);
     }
 
-    public void setColor(Integer paletteColor){
+    public void setColor(Integer paletteColor) {
         paint.setColor(paletteColor);
+    }
+
+    public ArrayList<CustomPath> getAllPaths() {
+        return this.allPaths;
+    }
+
+    public ArrayList<Integer> getAllPaints() {
+        return allPaints;
+    }
+
+    public void setAllPaints(ArrayList<Integer> allPaints) {
+        this.allPaints = allPaints;
+    }
+
+    public void setAllPaths(ArrayList<CustomPath> allPaths) {
+        this.allPaths = allPaths;
     }
 }

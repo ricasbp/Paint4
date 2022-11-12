@@ -24,12 +24,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+import android.location.LocationListener;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapActivity extends AppCompatActivity {
@@ -43,7 +46,8 @@ public class MapActivity extends AppCompatActivity {
     //https://www.youtube.com/watch?v=rEhYTd4T__c&ab_channel=AndroidCoding
 
     Polyline polyline = null;
-    boolean startGettingLocation = false;
+    List<LatLng> latLngList = new ArrayList<>();
+    GoogleMap gMap;
 
 
     @Override
@@ -88,6 +92,8 @@ public class MapActivity extends AppCompatActivity {
 
                                 //Add marker on map
                                 googleMap.addMarker(options);
+
+                                gMap = googleMap;
                             }
                         });
                     }
@@ -105,7 +111,6 @@ public class MapActivity extends AppCompatActivity {
             btn_StartStopDrawing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("LogDaTuga", "clickedButton ! ");
 
                     // Corre um método que está sempre a correr enquanto tivermos o map aberto
                     // e vai desenhando a polyline num mapa.
@@ -120,26 +125,44 @@ public class MapActivity extends AppCompatActivity {
     }
 
     public void startDrawing(){
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                //TextView locationInfo = findViewById(R.id.locationInfo);
-                //locationInfo.setText(location.toString());
-                //Log.d("LogDaTuga", "locationInfo = " + locationInfo + "/n   " +
-                //        "location.toString() = " + location);
-                Log.d("LogDaTuga", "latitude = "+ location.getLatitude());
+                TextView locationInfo = findViewById(R.id.locationInfo);
+                locationInfo.setText("  " + location.getLatitude() + "  " + location.getLongitude());
+
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                latLngList.add(latLng);
+
+                if(polyline != null) polyline.remove();
+
+                //Create PolyLineOptions
+                PolylineOptions polyLineOptions = new PolylineOptions()
+                        .addAll(latLngList).clickable(true);
+
+                polyline = gMap.addPolyline(polyLineOptions);
+
+                Toast.makeText(MapActivity.this, "latitude() = " + location.getLatitude() + "/n  " +
+                        "longitude() = " + location.getLongitude() , Toast.LENGTH_LONG).show();
+
+
 
             }
         };
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Permission is not there
+        }else{
+            // Provider, Time 1000 = 1 milisecond, 1 m distance between last location and current location , and listener
+            Toast.makeText(MapActivity.this, "Toast message2" , Toast.LENGTH_LONG).show();
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 1F, locationListener);
+
+
         }
-        // Provider, Time 1000 = 1 milisecond, 1 distance between last location and current location , and listener
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 1F, (android.location.LocationListener) locationListener);
     }
 
 
